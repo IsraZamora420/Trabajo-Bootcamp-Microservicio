@@ -1,0 +1,6 @@
+@Trabajo_Bootcamp_Microservicio_HostAddress = http://localhost:5073
+
+GET {{Trabajo_Bootcamp_Microservicio_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
