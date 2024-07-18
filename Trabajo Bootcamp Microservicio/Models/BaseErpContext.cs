@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Trabajo_Bootcamp_Microservicio.Models;
 
-public partial class VentasErpContext : DbContext
+public partial class BaseErpContext : DbContext
 {
-    public VentasErpContext()
+    public BaseErpContext()
     {
     }
 
-    public VentasErpContext(DbContextOptions<VentasErpContext> options)
+    public BaseErpContext(DbContextOptions<BaseErpContext> options)
         : base(options)
     {
     }

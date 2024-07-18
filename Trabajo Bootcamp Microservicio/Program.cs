@@ -9,14 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<ICatalogo, CatalogoService>();
+builder.Services.AddScoped<ICatalogo, CatalogoServices>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddDbContext<VentasErpContext>(opciones =>
+builder.Services.AddDbContext<BaseErpContext>(opciones =>
 opciones.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
