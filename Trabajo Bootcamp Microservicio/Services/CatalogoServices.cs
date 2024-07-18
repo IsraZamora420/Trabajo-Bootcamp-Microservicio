@@ -15,6 +15,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             this._context = context;
         }
 
+        //-----------------------------------------------PAIS--------------------------------------
         public async Task<Respuesta> GetPais(int idpais)
         {
             var respuesta = new Respuesta();
@@ -84,6 +85,32 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 respuesta.Cod = "000";
                 respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
                 Log.LogErrorMetodos("PaisServices", "PutPais", ex.Message);
+            }
+            return respuesta;
+        }
+        //-------------------------------------------------------------------------------------------------
+        public async Task<Respuesta> PostCategoria(Categorium categoria)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                var query = _context.Categoria.OrderByDescending(x => x.CategoriaId).Select(x => x.CategoriaId).FirstOrDefault();
+
+                categoria.CategoriaId = Convert.ToInt32(query) + 1;
+                categoria.FechaHoraReg = DateTime.Now;
+                categoria.FechaHoraAct = DateTime.Now;
+
+                _context.Categoria.Add(categoria);
+                await _context.SaveChangesAsync();
+
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se insertó correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                Log.LogErrorMetodos("CatalogoServices", "PostCategoria", ex.Message);
             }
             return respuesta;
         }

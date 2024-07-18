@@ -17,6 +17,7 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             this._catalogo = catalogo;
         }
 
+        //-------------------------------------------PAIS-------------------------------
         [HttpGet]
         [Route("GetPais")]
         public async Task<Respuesta> GetPais(int idpais)
@@ -57,6 +58,23 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             try
             {
                 respuesta = await _catalogo.PutPais(pais);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMetodos("PaisController", "PutPais", ex.Message);
+            }
+            return respuesta;
+        }
+        //----------------------------------------------------------------------------------------------
+        //-------------------------------------------CATEGORIA------------------------------------------
+        [HttpPost]
+        [Route("PostCategoria")]
+        public async Task<Respuesta> PostCategoria([FromBody] Categorium categoria)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _catalogo.PostCategoria(categoria);
             }
             catch (Exception ex)
             {

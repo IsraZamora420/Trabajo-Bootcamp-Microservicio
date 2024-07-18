@@ -4,9 +4,14 @@ namespace Trabajo_Bootcamp_Microservicio.Interfaces
 {
     public interface ICatalogo
     {
+        //-----------------------PAIS----------------
         Task<Respuesta> GetPais(int idpais);
 
         Task<Respuesta> PostPais(Pai pais);
         Task<Respuesta> PutPais(Pai pais);
+        //---------------------------------------------
+        //-----------------------CATEGORIA----------------
+        Task<Respuesta> PostCategoria(Categorium categoria);
+
     }
 }
