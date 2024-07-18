@@ -1,28 +1,35 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Trabajo_Bootcamp_Microservicio.Interfaces;
 using Trabajo_Bootcamp_Microservicio.Models;
 using Trabajo_Bootcamp_Microservicio.Utilities;
 
 namespace Trabajo_Bootcamp_Microservicio.Services
 {
-    public class PaisServices : IPais
+    public class CatalogoServices : ICatalogo
     {
         private readonly BaseErpContext _context;
         private ControlError Log = new ControlError();
 
-        public PaisServices(BaseErpContext context)
+        public CatalogoServices(BaseErpContext context)
         {
             this._context = context;
         }
 
-        public async Task<Respuesta> GetPais()
+        public async Task<Respuesta> GetPais(int idpais)
         {
             var respuesta = new Respuesta();
             try
             {
                 respuesta.Cod = "000";
-                respuesta.Data = await _context.Pais.ToListAsync();
+                if (idpais == 0)
+                {
+                    respuesta.Data = await _context.Pais.ToListAsync();
+                }
+                else if (idpais != 0)
+                {
+                    respuesta.Data = await _context.Pais.Where(p => p.PaisId.Equals(idpais)).ToListAsync();
+                }
+
                 respuesta.Mensaje = "Ok";
             }
             catch (Exception ex)
@@ -79,7 +86,6 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 Log.LogErrorMetodos("PaisServices", "PutPais", ex.Message);
             }
             return respuesta;
-
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Trabajo_Bootcamp_Microservicio.Interfaces;
 using Trabajo_Bootcamp_Microservicio.Models;
 using Trabajo_Bootcamp_Microservicio.Utilities;
@@ -8,28 +7,28 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PaisController : Controller
+    public class CatalogoController : Controller
     {
-        private readonly IPais _pais;
+        private readonly ICatalogo _catalogo;
         private ControlError Log = new ControlError();
 
-        public PaisController(IPais pais)
+        public CatalogoController(ICatalogo catalogo)
         {
-            this._pais = pais;
+            this._catalogo = catalogo;
         }
 
         [HttpGet]
         [Route("GetPais")]
-        public async Task<Respuesta> GetPais()
+        public async Task<Respuesta> GetPais(int idpais)
         {
             var respuesta = new Respuesta();
             try
             {
-                respuesta = await _pais.GetPais();
+                respuesta = await _catalogo.GetPais(idpais);
             }
             catch (Exception ex)
             {
-                Log.LogErrorMetodos("PaisService", "GetPais", ex.Message);
+                Log.LogErrorMetodos("CatalogoController", "GetPais", ex.Message);
             }
             return respuesta;
         }
@@ -41,11 +40,11 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             var respuesta = new Respuesta();
             try
             {
-                respuesta = await _pais.PostPais(pais);
+                respuesta = await _catalogo.PostPais(pais);
             }
             catch (Exception ex)
             {
-                Log.LogErrorMetodos("PaisController", "PostPais", ex.Message);
+                Log.LogErrorMetodos("CatalogoController", "PostPais", ex.Message);
             }
             return respuesta;
         }
@@ -57,7 +56,7 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             var respuesta = new Respuesta();
             try
             {
-                respuesta = await _pais.PutPais(pais);
+                respuesta = await _catalogo.PutPais(pais);
             }
             catch (Exception ex)
             {
@@ -65,6 +64,5 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             }
             return respuesta;
         }
-
     }
 }
