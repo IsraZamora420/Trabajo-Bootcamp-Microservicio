@@ -114,7 +114,54 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             }
             return respuesta;
         }
-        //----------------------------------------------------------------------------------------------
-        
+        //-------------------------------------------------------------------------------------------------
+        //-------------------------------------------FORMA DE PAGO------------------------------------------
+        [HttpGet]
+        [Route("GetFormaPago")]
+        public async Task<Respuesta> GetFormaPago(int idPago)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _catalogo.GetFormaPago(idPago);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMetodos("CatalogoController", "GetFormaPago", ex.Message);
+            }
+            return respuesta;
+        }
+
+        [HttpPost]
+        [Route("PostFormaPago")]
+        public async Task<Respuesta> PostFormaPago([FromBody] FormaPago formaPago)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _catalogo.PostFormaPago(formaPago);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMetodos("CatalogoController", "PostFormaPago", ex.Message);
+            }
+            return respuesta;
+        }
+
+        [HttpPut]
+        [Route("PutFormaPago")]
+        public async Task<Respuesta> PutFormaPago([FromBody] FormaPago formaPago)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _catalogo.PutFormaPago(formaPago);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMetodos("CatalogoController", "PutFormaPago", ex.Message);
+            }
+            return respuesta;
+        }
     }
 }

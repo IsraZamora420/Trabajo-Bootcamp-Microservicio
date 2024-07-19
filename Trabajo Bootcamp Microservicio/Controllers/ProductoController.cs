@@ -49,5 +49,21 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             }
             return respuesta;
         }
+
+        [HttpPut]
+        [Route("PutProducto")]
+        public async Task<Respuesta> PutProducto([FromBody] Producto producto)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _producto.PutProducto(producto);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMetodos("ProductoController", "PutProducto", ex.Message);
+            }
+            return respuesta;
+        }
     }
 }

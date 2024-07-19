@@ -68,7 +68,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                      EmpresaId = p.EmpresaId,
                                                      EmpresaNombre = emp.EmpresaNombre,
                                                      ProveedorId = p.ProveedorId,
-                                                     ProveedorNombre = p.ProdDescripcion
+                                                     ProveedorNombre = pp.ProvNomComercial
                                                  });
 
                 if (idProducto != 0)
@@ -83,6 +83,27 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 respuesta.Cod = "000";
                 respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
                 Log.LogErrorMetodos("ProductoServices", "GetProducto", ex.Message);
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PutProducto(Producto producto)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                producto.FechaHoraAct = DateTime.Now;
+                _context.Productos.Update(producto);
+                await _context.SaveChangesAsync();
+
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se actualizó correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                Log.LogErrorMetodos("ProductoServices", "PutProducto", ex.Message);
             }
             return respuesta;
         }

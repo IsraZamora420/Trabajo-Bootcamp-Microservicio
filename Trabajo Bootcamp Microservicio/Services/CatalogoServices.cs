@@ -160,7 +160,78 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             }
             return respuesta;
         }
-        //-------------------------------------------------------------------------------------------------
-        
+        //--------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------FORMA DE PAGO--------------------------------------------
+        public async Task<Respuesta> GetFormaPago(int idPago)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta.Cod = "000";
+                if (idPago == 0)
+                {
+                    respuesta.Data = await _context.FormaPagos.ToListAsync();
+                }
+                else if (idPago != 0)
+                {
+                    respuesta.Data = await _context.FormaPagos.Where(p => p.FpagoId == idPago).ToListAsync();
+                }
+                respuesta.Mensaje = "Ok";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                Log.LogErrorMetodos("CatalogoServices", "GetFormaPago", ex.Message);
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PostFormaPago(FormaPago formaPago)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                var query = _context.FormaPagos.OrderByDescending(x => x.FpagoId).Select(x => x.FpagoId).FirstOrDefault();
+
+                formaPago.FpagoId = Convert.ToInt32(query) + 1;
+                formaPago.FechaHoraReg = DateTime.Now;
+                formaPago.FechaHoraAct = DateTime.Now;
+
+                _context.FormaPagos.Add(formaPago);
+                await _context.SaveChangesAsync();
+
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se insertó correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                Log.LogErrorMetodos("CatalogoServices", "PostFormaPago", ex.Message);
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PutFormaPago(FormaPago formaPago)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                formaPago.FechaHoraAct = DateTime.Now;
+                _context.FormaPagos.Update(formaPago);
+                await _context.SaveChangesAsync();
+
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se actualizó correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                Log.LogErrorMetodos("CatalogoServices", "PutFormaPago", ex.Message);
+            }
+            return respuesta;
+        }
     }
 }

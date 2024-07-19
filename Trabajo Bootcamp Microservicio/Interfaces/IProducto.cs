@@ -6,6 +6,8 @@ namespace Trabajo_Bootcamp_Microservicio.Interfaces
     {
         Task<Respuesta> PostProducto(Producto producto);
         Task<Respuesta> GetProducto(int idProducto);
-        
+        Task<Respuesta> PutProducto(Producto producto);
+
+
     }
 }

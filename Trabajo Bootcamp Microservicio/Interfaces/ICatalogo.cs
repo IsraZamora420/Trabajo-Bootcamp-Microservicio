@@ -14,6 +14,10 @@ namespace Trabajo_Bootcamp_Microservicio.Interfaces
         Task<Respuesta> PostCategoria(Categorium categoria);
         Task<Respuesta> GetCategoria(int idCategoria);
         Task<Respuesta> PutCategoria(Categorium categoria);
-        
+        //-----------------------------------------------
+        //-----------------------FORMA DE PAGO----------------
+        Task<Respuesta> GetFormaPago(int idPago);
+        Task<Respuesta> PostFormaPago(FormaPago formaPago);
+        Task<Respuesta> PutFormaPago(FormaPago formaPago);
     }
 }
