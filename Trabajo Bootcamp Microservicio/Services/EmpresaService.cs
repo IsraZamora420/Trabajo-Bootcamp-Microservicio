@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Trabajo_Bootcamp_Microservicio.Dtos;
+using Trabajo_Bootcamp_Microservicio.Interfaces;
 using Trabajo_Bootcamp_Microservicio.Models;
 using Trabajo_Bootcamp_Microservicio.Utilities;
 
 namespace Trabajo_Bootcamp_Microservicio.Services
 {
-    public class EmpresaService
+    public class EmpresaService : IEmpresa
     {
         private readonly BaseErpContext _context;
         private ControlError Log = new ControlError();
