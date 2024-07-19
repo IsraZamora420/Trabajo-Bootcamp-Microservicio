@@ -15,6 +15,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             this._context = context;
         }
 
+        //-----------------------------------------------ROL--------------------------------------
         public async Task<Respuesta> GetRol()
         {
             var respuesta = new Respuesta();
@@ -32,68 +33,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             }
             return respuesta;
         }
-        public async Task<Respuesta> GetProveedor()
-        {
-            var respuesta = new Respuesta();
-            try
-            {
-                respuesta.Cod = "000";
-                respuesta.Data = await _context.Proveedors.ToListAsync();
-                respuesta.Mensaje = "Ok";
-            }
-            catch (Exception ex)
-            {
-                respuesta.Cod = "000";
-                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
-                Log.LogErrorMetodos("CatalogoService", "GetProveedor", ex.Message);
-            }
-            return respuesta;
-        }
-
-        public async Task<Respuesta> PostProveedor(Proveedor proveedor)
-        {
-            var respuesta = new Respuesta();
-            try
-            {
-                var query = _context.Proveedors.OrderByDescending(c => c.ProvId).Select(c => c.ProvId).FirstOrDefault();
-
-                proveedor.ProvId = Convert.ToInt32(query) + 1;
-                //vendedor.FechaHoraReg = DateTime.Now;
-
-                _context.Proveedors.Add(proveedor);
-                await _context.SaveChangesAsync();
-
-                respuesta.Cod = "000";
-                respuesta.Mensaje = "Se insertó correctamente";
-            }
-            catch (Exception ex)
-            {
-                respuesta.Cod = "000";
-                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
-                Log.LogErrorMetodos("CatalogoService", "PostProveedor", ex.Message);
-            }
-            return respuesta;
-        }
-        public async Task<Respuesta> PutProveedor(Proveedor proveedor)
-        {
-            var respuesta = new Respuesta();
-            try
-            {
-                _context.Proveedors.Update(proveedor);
-                await _context.SaveChangesAsync();
-
-                respuesta.Cod = "000";
-                respuesta.Mensaje = "Se insertó correctamente";
-            }
-            catch (Exception ee)
-            {
-                respuesta.Cod = "000";
-                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
-                Log.LogErrorMetodos("CatalogoService", "PutProveedor", ee.Message);
-            }
-            return respuesta;
-        }
-
+      
         public async Task<Respuesta> PostRol(Rol rol)
         {
             var respuesta = new Respuesta();
@@ -139,6 +79,9 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             return respuesta;
         }
 
+        //-------------------------------------------------------------------------------------
+
+        //-----------------------------------------------TIPO MOVIMIENTO--------------------------------------
         public async Task<Respuesta> GetTipoMovimiento()
         {
             var respuesta = new Respuesta();
@@ -200,7 +143,9 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             }
             return respuesta;
         }
+        //-------------------------------------------------------------------------------------
 
+        //-----------------------------------------------USUARIO--------------------------------------
         public async Task<Respuesta> GetUsuario()
         {
             var respuesta = new Respuesta();
@@ -262,7 +207,144 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             }
             return respuesta;
         }
+        //-------------------------------------------------------------------------------------
 
+        //-----------------------------------------------PAIS--------------------------------------
+        public async Task<Respuesta> GetPais(int idpais)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta.Cod = "000";
+                if (idpais == 0)
+                {
+                    respuesta.Data = await _context.Pais.ToListAsync();
+                }
+                else if (idpais != 0)
+                {
+                    respuesta.Data = await _context.Pais.Where(p => p.PaisId.Equals(idpais)).ToListAsync();
+                }
 
+                respuesta.Mensaje = "Ok";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                Log.LogErrorMetodos("PaisService", "GetPais", ex.Message);
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PostPais(Pai pais)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                var query = _context.Pais.OrderByDescending(x => x.PaisId).Select(x => x.PaisId).FirstOrDefault();
+
+                pais.PaisId = Convert.ToInt32(query) + 1;
+                pais.FechaHoraReg = DateTime.Now;
+                pais.FechaHoraAct = DateTime.Now;
+
+                _context.Pais.Add(pais);
+                await _context.SaveChangesAsync();
+
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se insertó correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                Log.LogErrorMetodos("PaisServices", "PostPais", ex.Message);
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PutPais(Pai pais)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                pais.FechaHoraAct = DateTime.Now;
+                _context.Pais.Update(pais);
+                await _context.SaveChangesAsync();
+
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se actualizó correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                Log.LogErrorMetodos("PaisServices", "PutPais", ex.Message);
+            }
+            return respuesta;
+        }
+        //-------------------------------------------------------------------------------------
+        /*
+        public async Task<Respuesta> GetProveedor()
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta.Cod = "000";
+                respuesta.Data = await _context.Proveedors.ToListAsync();
+                respuesta.Mensaje = "Ok";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                Log.LogErrorMetodos("CatalogoService", "GetProveedor", ex.Message);
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PostProveedor(Proveedor proveedor)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                var query = _context.Proveedors.OrderByDescending(c => c.ProvId).Select(c => c.ProvId).FirstOrDefault();
+
+                proveedor.ProvId = Convert.ToInt32(query) + 1;
+                //vendedor.FechaHoraReg = DateTime.Now;
+
+                _context.Proveedors.Add(proveedor);
+                await _context.SaveChangesAsync();
+
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se insertó correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                Log.LogErrorMetodos("CatalogoService", "PostProveedor", ex.Message);
+            }
+            return respuesta;
+        }
+        public async Task<Respuesta> PutProveedor(Proveedor proveedor)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                _context.Proveedors.Update(proveedor);
+                await _context.SaveChangesAsync();
+
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se insertó correctamente";
+            }
+            catch (Exception ee)
+            {
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                Log.LogErrorMetodos("CatalogoService", "PutProveedor", ee.Message);
+            }
+            return respuesta;
+        }
+        */
     }
 }
