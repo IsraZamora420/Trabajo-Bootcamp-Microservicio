@@ -16,24 +16,7 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
         {
             this._catalogo = catalogo;
         }
-        /*
-        [HttpGet]
-        [Route("GetProveedor")]
-        public async Task<Respuesta> GetProveedor()
-        {
-            var respuesta = new Respuesta();
-            try
-            {
-                respuesta = await _catalogo.GetProveedor();
-            }
-            catch (Exception ex)
-            {
-                Log.LogErrorMetodos("CatalogoController", "GetProveedor", ex.Message);
-            }
-            return respuesta;
-        }
-        */
-        
+     
         //-------------------------------------------ROL-------------------------------
         [HttpGet]
         [Route("GetRol")]
