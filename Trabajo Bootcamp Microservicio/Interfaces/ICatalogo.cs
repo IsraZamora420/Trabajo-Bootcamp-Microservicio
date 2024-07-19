@@ -9,9 +9,11 @@ namespace Trabajo_Bootcamp_Microservicio.Interfaces
 
         Task<Respuesta> PostPais(Pai pais);
         Task<Respuesta> PutPais(Pai pais);
-        //---------------------------------------------
+        //-----------------------------------------------
         //-----------------------CATEGORIA----------------
         Task<Respuesta> PostCategoria(Categorium categoria);
-
+        Task<Respuesta> GetCategoria(int idCategoria);
+        Task<Respuesta> PutCategoria(Categorium categoria);
+        
     }
 }

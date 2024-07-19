@@ -30,14 +30,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 {
                     respuesta.Data = await _context.Pais.Where(p => p.PaisId.Equals(idpais)).ToListAsync();
                 }
-
                 respuesta.Mensaje = "Ok";
             }
             catch (Exception ex)
             {
                 respuesta.Cod = "000";
                 respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
-                Log.LogErrorMetodos("PaisService", "GetPais", ex.Message);
+                Log.LogErrorMetodos("CatalogoService", "GetPais", ex.Message);
             }
             return respuesta;
         }
@@ -63,7 +62,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             {
                 respuesta.Cod = "000";
                 respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
-                Log.LogErrorMetodos("PaisServices", "PostPais", ex.Message);
+                Log.LogErrorMetodos("CatalogoServices", "PostPais", ex.Message);
             }
             return respuesta;
         }
@@ -84,11 +83,12 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             {
                 respuesta.Cod = "000";
                 respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
-                Log.LogErrorMetodos("PaisServices", "PutPais", ex.Message);
+                Log.LogErrorMetodos("CatalogoServices", "PutPais", ex.Message);
             }
             return respuesta;
         }
         //-------------------------------------------------------------------------------------------------
+        //-----------------------------------------------CATEGORIA--------------------------------------------
         public async Task<Respuesta> PostCategoria(Categorium categoria)
         {
             var respuesta = new Respuesta();
@@ -114,5 +114,53 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             }
             return respuesta;
         }
+
+        public async Task<Respuesta> GetCategoria(int idCategoria)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta.Cod = "000";
+                if (idCategoria == 0)
+                {
+                    respuesta.Data = await _context.Categoria.ToListAsync();
+                }
+                else if (idCategoria != 0)
+                {
+                    respuesta.Data = await _context.Categoria.Where(p => p.CategoriaId == idCategoria).ToListAsync();
+                }
+                respuesta.Mensaje = "Ok";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                Log.LogErrorMetodos("CatalogoServices", "GetCategoria", ex.Message);
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PutCategoria(Categorium categoria)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                categoria.FechaHoraAct = DateTime.Now;
+                _context.Categoria.Update(categoria);
+                await _context.SaveChangesAsync();
+
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se actualizó correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                Log.LogErrorMetodos("CatalogoServices", "PutCategoria", ex.Message);
+            }
+            return respuesta;
+        }
+        //-------------------------------------------------------------------------------------------------
+        
     }
 }

@@ -61,7 +61,7 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             }
             catch (Exception ex)
             {
-                Log.LogErrorMetodos("PaisController", "PutPais", ex.Message);
+                Log.LogErrorMetodos("CatalogoController", "PutPais", ex.Message);
             }
             return respuesta;
         }
@@ -78,9 +78,43 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             }
             catch (Exception ex)
             {
-                Log.LogErrorMetodos("PaisController", "PutPais", ex.Message);
+                Log.LogErrorMetodos("CatalogoController", "PostCategoria", ex.Message);
             }
             return respuesta;
         }
+
+        [HttpGet]
+        [Route("GetCategoria")]
+        public async Task<Respuesta> GetCategoria(int idCategoria)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _catalogo.GetCategoria(idCategoria);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMetodos("CatalogoController", "GetCategoria", ex.Message);
+            }
+            return respuesta;
+        }
+
+        [HttpPut]
+        [Route("PutCategoria")]
+        public async Task<Respuesta> PutCategoria(Categorium categoria)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _catalogo.PutCategoria(categoria);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMetodos("CatalogoController", "PutCategoria", ex.Message);
+            }
+            return respuesta;
+        }
+        //----------------------------------------------------------------------------------------------
+        
     }
 }
