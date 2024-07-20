@@ -68,6 +68,7 @@ public partial class BaseErpContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         //optionsBuilder.UseSqlServer("Server=ASUSGIGI\\SQLEXPRESS;Database=BASE_ERP;Integrated Security=True;TrustServerCertificate=True");
+        //optionsBuilder.UseSqlServer("Server=CRISTIANM\\sqlexpress;Database=VENTAS_ERP;Integrated Security=True;TrustServerCertificate=True");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -8,10 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Servicios\**" />
-    <Content Remove="Servicios\**" />
-    <EmbeddedResource Remove="Servicios\**" />
-    <None Remove="Servicios\**" />
+    <Compile Remove="Controllers\PaisController.cs" />
+    <Compile Remove="Interfaces\IPais.cs" />
+    <Compile Remove="Services\PaisServices.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,7 +10,7 @@
             DateTime Fecha = DateTime.Now;
             try
             {
-                ruta = "C:\\ProyectoIntegrador\\LogApiErp";
+                ruta = "C:\\ProyectoIntegrador\\Log2";
                 archivo = $"Log_{Fecha.ToString("dd-MM-yyyy")}";
 
                 if (!Directory.Exists(ruta))

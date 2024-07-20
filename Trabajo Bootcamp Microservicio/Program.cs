@@ -8,12 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-
 builder.Services.AddScoped<ICatalogo, CatalogoServices>();
 builder.Services.AddScoped<IProducto, ProductoServices>();
 builder.Services.AddScoped<IMovimientoCab, MovimientoCabServices>();
 builder.Services.AddScoped<IMovimientoDetProd, MovimientoDetProdServices>();
 builder.Services.AddScoped<IMovimientoDetPagos, MovimientoDetPagosServices>();
+builder.Services.AddScoped<IProveedor, ProveedorServices>();
+builder.Services.AddScoped<ICiudad, CiudadServices>();
+builder.Services.AddScoped<IUsuarioRol, UsuarioRolServices>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -1,4 +1,5 @@
-﻿using Trabajo_Bootcamp_Microservicio.Models;
+using Trabajo_Bootcamp_Microservicio.Models;
+using System.Text.RegularExpressions;
 
 namespace Trabajo_Bootcamp_Microservicio.Interfaces
 {
@@ -19,5 +20,26 @@ namespace Trabajo_Bootcamp_Microservicio.Interfaces
         Task<Respuesta> GetFormaPago(int idPago);
         Task<Respuesta> PostFormaPago(FormaPago formaPago);
         Task<Respuesta> PutFormaPago(FormaPago formaPago);
+        //-----------------------ROL----------------
+        Task<Respuesta> GetRol();
+        Task<Respuesta> PostRol(Rol rol);
+        Task<Respuesta> PutRol(Rol rol);
+        //---------------------------------------------
+        /*
+        Task<Respuesta> GetProveedor();
+        Task<Respuesta> PostProveedor(Proveedor proveedor);
+        Task<Respuesta> PutProveedor(Proveedor proveedor);
+        */
+        //-----------------------TIPO MOVIMIENTO----------------
+        Task<Respuesta> GetTipoMovimiento();
+        Task<Respuesta> PostTipoMovimiento(TipoMovimiento tipoMovimiento);
+        Task<Respuesta> PutTipoMovimiento(TipoMovimiento tipoMovimiento);
+        //---------------------------------------------
+
+        //-----------------------USUARIO----------------
+        Task<Respuesta> GetUsuario();
+        Task<Respuesta> PostUsuario(Usuario usuario);
+        Task<Respuesta> PutUsuario(Usuario usuario);
+        //---------------------------------------------
     }
 }
