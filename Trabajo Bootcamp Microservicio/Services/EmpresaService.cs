@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Trabajo_Bootcamp_Microservicio.Dtos;
+using Trabajo_Bootcamp_Microservicio.DTOs;
 using Trabajo_Bootcamp_Microservicio.Interfaces;
 using Trabajo_Bootcamp_Microservicio.Models;
 using Trabajo_Bootcamp_Microservicio.Utilities;
@@ -30,12 +30,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                             where e.Estado.Equals("A") && e.EmpresaId.Equals(EmpresaId) && e.EmpresaRuc.Equals(EmpresaRuc)
                                             select new EmpresaDto
                                             {
-                                                Id = e.EmpresaId,
+                                                EmpresaId = e.EmpresaId,
                                                 Ruc = e.EmpresaRuc,
                                                 Nombre = e.EmpresaNombre,
                                                 Razon = e.EmpresaNombre,
                                                 DireccionMatriz = e.EmpresaDireccionMatriz,
                                                 TelefonoMatriz = e.EmpresaTelefonoMatriz,
+                                                IdCiudad = c.CiudadId,
                                                 Ciudad = c.CiudadNombre,
                                                 Estado = e.Estado
                                             }).ToListAsync();
@@ -49,12 +50,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                             where e.Estado.Equals("A") && e.EmpresaId.Equals(EmpresaId)
                                             select new EmpresaDto
                                             {
-                                                Id = e.EmpresaId,
+                                                EmpresaId = e.EmpresaId,
                                                 Ruc = e.EmpresaRuc,
                                                 Nombre = e.EmpresaNombre,
                                                 Razon = e.EmpresaNombre,
                                                 DireccionMatriz = e.EmpresaDireccionMatriz,
                                                 TelefonoMatriz = e.EmpresaTelefonoMatriz,
+                                                IdCiudad = c.CiudadId,
                                                 Ciudad = c.CiudadNombre,
                                                 Estado = e.Estado
                                             }).ToListAsync();
@@ -68,12 +70,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                             where e.Estado.Equals("A") && e.EmpresaRuc.Equals(EmpresaRuc)
                                             select new EmpresaDto
                                             {
-                                                Id = e.EmpresaId,
+                                                EmpresaId = e.EmpresaId,
                                                 Ruc = e.EmpresaRuc,
                                                 Nombre = e.EmpresaNombre,
                                                 Razon = e.EmpresaNombre,
                                                 DireccionMatriz = e.EmpresaDireccionMatriz,
                                                 TelefonoMatriz = e.EmpresaTelefonoMatriz,
+                                                IdCiudad = c.CiudadId,
                                                 Ciudad = c.CiudadNombre,
                                                 Estado = e.Estado
                                             }).ToListAsync();
