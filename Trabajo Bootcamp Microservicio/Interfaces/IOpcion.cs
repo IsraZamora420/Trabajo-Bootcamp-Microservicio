@@ -5,6 +5,7 @@ namespace Trabajo_Bootcamp_Microservicio.Interfaces
     public interface IOpcion
     {
         Task<Respuesta> GetOpcion(int opcionId);
-        Task<Respuesta> CreateOpcion(Opcion opcion);
+        Task<Respuesta> PostOpcion(Opcion opcion);
+        Task<Respuesta> PutOpcion(Opcion opcion);
     }
 }

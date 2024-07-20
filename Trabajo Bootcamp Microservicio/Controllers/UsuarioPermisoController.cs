@@ -2,18 +2,20 @@
 using Microsoft.AspNetCore.Mvc;
 using Trabajo_Bootcamp_Microservicio.Interfaces;
 using Trabajo_Bootcamp_Microservicio.Models;
+using Trabajo_Bootcamp_Microservicio.Utilities;
 
 namespace Trabajo_Bootcamp_Microservicio.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioPermisoController : ControllerBase
+    [Route("[controller]")]
+    public class UsuarioPermisoController : Controller
     {
         private readonly IUsuarioPermiso _usuarioPermiso;
+        private ControlError Log = new ControlError();
 
         public UsuarioPermisoController(IUsuarioPermiso usuarioPermiso)
         {
-            _usuarioPermiso = usuarioPermiso;
+            this._usuarioPermiso = usuarioPermiso;
         }
 
         [HttpGet]
@@ -25,26 +27,40 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             {
                 respuesta = await _usuarioPermiso.GetUsuarioPermiso(PermisoId);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Log.LogErrorMetodos("UsuarioPermisoController", "GetUsuarioPermiso", ex.Message);
             }
             return respuesta;
         }
 
         [HttpPost]
-        [Route("CreateUsuarioPermiso")]
-        public async Task<Respuesta> CreateUsuarioPermiso([FromBody] UsuarioPermiso usuarioPermiso)
+        [Route("PostUsuarioPermiso")]
+        public async Task<Respuesta> PostUsuarioPermiso([FromBody] UsuarioPermiso usuarioPermiso)
         {
             var respuesta = new Respuesta();
             try
             {
-                respuesta = await _usuarioPermiso.CreateUsuarioPermiso(usuarioPermiso);
+                respuesta = await _usuarioPermiso.PostUsuarioPermiso(usuarioPermiso);
             }
             catch (Exception ex)
             {
-                respuesta.Mensaje = $"Un error ocurrio {ex}";
+                Log.LogErrorMetodos("UsuarioPermisoController", "PostUsuarioPermiso", ex.Message);
+            }
+            return respuesta;
+        }
+        [HttpPut]
+        [Route("PutUsuarioPermiso")]
+        public async Task<Respuesta> PutUsuarioPermiso([FromBody] UsuarioPermiso usuarioPermiso)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _usuarioPermiso.PutUsuarioPermiso(usuarioPermiso);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMetodos("UsuarioPermisoController", "PutUsuarioPermiso", ex.Message);
             }
             return respuesta;
         }

@@ -6,9 +6,9 @@ using Trabajo_Bootcamp_Microservicio.Utilities;
 
 namespace Trabajo_Bootcamp_Microservicio.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class TarjetaCreditoController : ControllerBase
+    [Route("[controller]")]
+    public class TarjetaCreditoController : Controller
     {
         private readonly ITarjetaCredito _tarjetaCredito;
         private ControlError Log = new ControlError();

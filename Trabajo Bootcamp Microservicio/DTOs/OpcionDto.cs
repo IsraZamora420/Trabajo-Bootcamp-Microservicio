@@ -19,7 +19,7 @@ namespace Trabajo_Bootcamp_Microservicio.DTOs
         public int? UsuIdAct { get; set; }
 
         public int? ModuloId { get; set; }
-        public string? ModuloNombre { get; set; }
+        public string? ModuloDescripcion { get; set; }
 
     }
 }

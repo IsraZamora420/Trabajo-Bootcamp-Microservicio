@@ -7,9 +7,9 @@ using Trabajo_Bootcamp_Microservicio.Utilities;
 
 namespace Trabajo_Bootcamp_Microservicio.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class CatalogoController : ControllerBase
+    [Route("[controller]")]
+    public class CatalogoController : Controller
     {
         private readonly ICatalogo _catalogo;
         private ControlError Log = new ControlError();

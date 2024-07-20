@@ -18,7 +18,7 @@ opciones.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnecti
 builder.Services.AddScoped<ICatalogo, CatalogoServices>();
 builder.Services.AddScoped<ITarjetaCredito, TarjetaCreditoServices>();
 builder.Services.AddScoped<IOpcion, OpcionServices>();
-//builder.Services.AddScoped<IUsuarioPermiso, UsuarioPermisoServices>();
+builder.Services.AddScoped<IUsuarioPermiso, UsuarioPermisoServices>();
 
 
 var app = builder.Build();

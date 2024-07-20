@@ -5,6 +5,7 @@ namespace Trabajo_Bootcamp_Microservicio.Interfaces
     public interface IUsuarioPermiso
     {
         Task<Respuesta> GetUsuarioPermiso(int PermisoId);
-        Task<Respuesta> CreateUsuarioPermiso(UsuarioPermiso usuarioPermiso);
+        Task<Respuesta> PostUsuarioPermiso(UsuarioPermiso usuarioPermiso);
+        Task<Respuesta> PutUsuarioPermiso(UsuarioPermiso usuarioPermiso);
     }
 }

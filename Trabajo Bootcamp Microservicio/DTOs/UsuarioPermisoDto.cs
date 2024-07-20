@@ -5,16 +5,14 @@ namespace Trabajo_Bootcamp_Microservicio.DTOs
     public class UsuarioPermisoDto
     {
         public int PermisoId { get; set; }
-        public int PermisoNombre { get; set; }
-
         public int? ModuloId { get; set; }
-        public int? ModuloNombre { get; set; }
+        public string? ModuloDescripcion { get; set; }
 
         public int? OpcionId { get; set; }
-        public int? OpcionNombre { get; set; }
+        public string? OpcionNombre { get; set; }
 
         public int? UsuId { get; set; }
-        public int? UsuNombre { get; set; }
+        public string? UsuNombre { get; set; }
 
         public short? EstadoPermiso { get; set; }
 
@@ -26,8 +24,5 @@ namespace Trabajo_Bootcamp_Microservicio.DTOs
 
         public int? UsuIdAct { get; set; }
 
-        public virtual Opcion? Opcion { get; set; }
-
-        public virtual Usuario? Usu { get; set; }
     }
 }
