@@ -65,9 +65,16 @@ public partial class BaseErpContext : DbContext
 
     public virtual DbSet<UsuarioRol> UsuarioRols { get; set; }
 
-    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        //optionsBuilder.UseSqlServer("Server=ASUSGIGI\\SQLEXPRESS;Database=BASE_ERP;Integrated Security=True;TrustServerCertificate=True");
+        //optionsBuilder.UseSqlServer("Server=CRISTIANM\\sqlexpress;Database=VENTAS_ERP;Integrated Security=True;TrustServerCertificate=True");
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.UseCollation("Modern_Spanish_CI_AS");
+
         modelBuilder.Entity<Bodega>(entity =>
         {
             entity.HasKey(e => e.BodegaId).HasName("_copy_3");

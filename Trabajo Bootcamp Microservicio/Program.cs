@@ -8,18 +8,23 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<ICatalogo, CatalogoServices>();
+builder.Services.AddScoped<IProducto, ProductoServices>();
+builder.Services.AddScoped<IMovimientoCab, MovimientoCabServices>();
+builder.Services.AddScoped<IMovimientoDetProd, MovimientoDetProdServices>();
+builder.Services.AddScoped<IMovimientoDetPagos, MovimientoDetPagosServices>();
+builder.Services.AddScoped<IProveedor, ProveedorServices>();
+builder.Services.AddScoped<ICiudad, CiudadServices>();
+builder.Services.AddScoped<IUsuarioRol, UsuarioRolServices>();
+builder.Services.AddScoped<ITarjetaCredito, TarjetaCreditoServices>();
+builder.Services.AddScoped<IOpcion, OpcionServices>();
+builder.Services.AddScoped<IUsuarioPermiso, UsuarioPermisoServices>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<BaseErpContext>(opciones =>
 opciones.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddScoped<ICatalogo, CatalogoServices>();
-builder.Services.AddScoped<ITarjetaCredito, TarjetaCreditoServices>();
-builder.Services.AddScoped<IOpcion, OpcionServices>();
-builder.Services.AddScoped<IUsuarioPermiso, UsuarioPermisoServices>();
-
 
 var app = builder.Build();
 
@@ -30,7 +35,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
