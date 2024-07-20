@@ -166,7 +166,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             var respuesta = new Respuesta();
             try
             {
-                var query = _context.Stocks.OrderByDescending(x => x.StockId).FirstOrDefault();
+                var query = _context.Stocks.OrderByDescending(x => x.StockId).Select(x=>x.StockId).FirstOrDefault();
 
                 stock.StockId = Convert.ToInt32(query) + 1;
                 stock.FechaHoraAct = DateTime.Now;

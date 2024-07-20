@@ -148,7 +148,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             var respuesta = new Respuesta();
             try
             {
-                var query = _context.PuntoEmisionSris.OrderByDescending(x => x.PuntoEmisionId).FirstOrDefault();
+                var query = _context.PuntoEmisionSris.OrderByDescending(x => x.PuntoEmisionId).Select(x=>x.PuntoEmisionId).FirstOrDefault();
 
                 puntoSRI.PuntoEmisionId = Convert.ToInt32(query) + 1;
                 puntoSRI.FechaHoraReg = DateTime.Now;
@@ -174,7 +174,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             var respuesta = new Respuesta();
             try
             {
-                var query = _context.PuntoVenta.OrderByDescending(x => x.PuntovtaId).FirstOrDefault();
+                var query = _context.PuntoVenta.OrderByDescending(x => x.PuntovtaId).Select(x=>x.PuntovtaId).FirstOrDefault();
 
                 puntoVenta.PuntovtaId = Convert.ToInt32(query) + 1;
                 puntoVenta.FechaHoraReg = DateTime.Now;

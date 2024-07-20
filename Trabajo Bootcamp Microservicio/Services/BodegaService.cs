@@ -119,7 +119,24 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 else
                 {
                     respuesta.codigo = "000";
-                    respuesta.mensaje = "No se proporcionaron suficientes parámetros para realizar la consulta.";
+                    respuesta.data = await (from b in _context.Bodegas
+                                            join s in _context.Sucursals on b.SucursalId equals s.SucursalId
+                                            where b.Estado.HasValue && b.Estado.Value == 1
+                                            select new BodegaSucursalDto
+                                            {
+                                                BodegaId = b.BodegaId,
+                                                BodegaNombre = b.BodegaNombre,
+                                                BodegaDireccion = b.BodegaDireccion,
+                                                BodegaTelefono = b.BodegaTelefono,
+                                                Estado = b.Estado,
+                                                FechaHoraReg = b.FechaHoraReg,
+                                                FechaHoraAct = b.FechaHoraAct,
+                                                SucursalId = s.SucursalId,
+                                                SucursalNombre = s.SucursalNombre,
+                                                SucursalDireccion = s.SucursalDireccion,
+                                                SucursalTelefono = s.SucursalTelefono
+                                            }).ToListAsync();
+                    respuesta.mensaje = "OK";
                 }
             }
             catch (Exception ex)
@@ -136,7 +153,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             var respuesta = new Respuesta();
             try
             {
-                var query = _context.Bodegas.OrderByDescending(x => x.BodegaId).FirstOrDefault();
+                var query = _context.Bodegas.OrderByDescending(x => x.BodegaId).Select(x=>x.BodegaId).FirstOrDefault();
 
                 bodega.BodegaId = Convert.ToInt32(query) + 1;
                 bodega.FechaHoraAct = DateTime.Now;

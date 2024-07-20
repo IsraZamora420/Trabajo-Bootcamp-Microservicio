@@ -33,7 +33,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                 EmpresaId = e.EmpresaId,
                                                 Ruc = e.EmpresaRuc,
                                                 Nombre = e.EmpresaNombre,
-                                                Razon = e.EmpresaNombre,
+                                                Razon = e.EmpresaRazon,
                                                 DireccionMatriz = e.EmpresaDireccionMatriz,
                                                 TelefonoMatriz = e.EmpresaTelefonoMatriz,
                                                 IdCiudad = c.CiudadId,
@@ -53,7 +53,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                 EmpresaId = e.EmpresaId,
                                                 Ruc = e.EmpresaRuc,
                                                 Nombre = e.EmpresaNombre,
-                                                Razon = e.EmpresaNombre,
+                                                Razon = e.EmpresaRazon,
                                                 DireccionMatriz = e.EmpresaDireccionMatriz,
                                                 TelefonoMatriz = e.EmpresaTelefonoMatriz,
                                                 IdCiudad = c.CiudadId,
@@ -73,7 +73,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                 EmpresaId = e.EmpresaId,
                                                 Ruc = e.EmpresaRuc,
                                                 Nombre = e.EmpresaNombre,
-                                                Razon = e.EmpresaNombre,
+                                                Razon = e.EmpresaRazon,
                                                 DireccionMatriz = e.EmpresaDireccionMatriz,
                                                 TelefonoMatriz = e.EmpresaTelefonoMatriz,
                                                 IdCiudad = c.CiudadId,
@@ -84,8 +84,23 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 }
                 else
                 {
-                    respuesta.codigo = "000"; 
-                    respuesta.mensaje = "No se proporcionaron suficientes parámetros para realizar la consulta.";
+                    respuesta.codigo = "000";
+                    respuesta.data = await (from e in _context.Empresas
+                                            join c in _context.Ciudads on e.CiudadId equals c.CiudadId
+                                            where e.Estado.Value == 1
+                                            select new EmpresaDto
+                                            {
+                                                EmpresaId = e.EmpresaId,
+                                                Ruc = e.EmpresaRuc,
+                                                Nombre = e.EmpresaNombre,
+                                                Razon = e.EmpresaRazon,
+                                                DireccionMatriz = e.EmpresaDireccionMatriz,
+                                                TelefonoMatriz = e.EmpresaTelefonoMatriz,
+                                                IdCiudad = c.CiudadId,
+                                                Ciudad = c.CiudadNombre,
+                                                Estado = e.Estado
+                                            }).ToListAsync();
+                    respuesta.mensaje = "OK";
                 }
             }
             catch (Exception ex)
@@ -103,7 +118,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             var respuesta = new Respuesta();
             try
             {
-                var query = _context.Empresas.OrderByDescending(x => x.EmpresaId).FirstOrDefault();
+                var query = _context.Empresas.OrderByDescending(x => x.EmpresaId).Select(x => x.EmpresaId).FirstOrDefault();
 
                 empresa.EmpresaId = Convert.ToInt32(query) + 1;
                 empresa.FechaHoraAct = DateTime.Now;

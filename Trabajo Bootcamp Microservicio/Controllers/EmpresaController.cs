@@ -42,7 +42,7 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             var respuesta = new Respuesta();
             try
             {
-                await _empresa.PostEmpresa(empresa);
+                respuesta = await _empresa.PostEmpresa(empresa);
             }
             catch (Exception ex)
             {

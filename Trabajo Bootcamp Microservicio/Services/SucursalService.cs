@@ -161,7 +161,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             var respuesta = new Respuesta();
             try
             {
-                var query = _context.Sucursals.OrderByDescending(x => x.SucursalId).FirstOrDefault();
+                var query = _context.Sucursals.OrderByDescending(x => x.SucursalId).Select(x => x.SucursalId).FirstOrDefault();
 
                 sucursal.SucursalId = Convert.ToInt32(query) + 1;
                 sucursal.FechaHoraAct = DateTime.Now;
