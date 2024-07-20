@@ -10,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<ICatalogo, CatalogoServices>();
+builder.Services.AddScoped<IProveedor, ProveedorServices>();
+builder.Services.AddScoped<ICiudad, CiudadServices>();
+builder.Services.AddScoped<IUsuarioRol, UsuarioRolServices>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

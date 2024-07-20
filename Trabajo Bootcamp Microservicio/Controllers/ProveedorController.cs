@@ -19,19 +19,52 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
 
      [HttpGet]
      [Route("GetProveedor")]
-     public async Task<Respuesta> GetProveedor()
+    public async Task<Respuesta> GetProveedor(int provId, string? nombreProveedor, string identificacion)
      {
          var respuesta = new Respuesta();
          try
          {
-             respuesta = await _proveedor.GetProveedor();
+             respuesta = await _proveedor.GetProveedor(provId, nombreProveedor,identificacion);
          }
          catch (Exception ex)
          {
-             Log.LogErrorMetodos("CatalogoController", "GetProveedor", ex.Message);
+             Log.LogErrorMetodos("ProveedorController", "GetProveedor", ex.Message);
          }
          return respuesta;
      }
+
+        [HttpPost]
+        [Route("PostProveedor")]
+        public async Task<Respuesta> PostProveedor([FromBody] Proveedor proveedor)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _proveedor.PostProveedor(proveedor);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMetodos("ProveedorController", "PostProveedor", ex.Message);
+            }
+            return respuesta;
+        }
+
+        [HttpPut]
+        [Route("PutProveedor")]
+        public async Task<Respuesta> PutProveedor([FromBody] Proveedor proveedor)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _proveedor.PutProveedor(proveedor);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMetodos("ProveedorController", "PutProveedor", ex.Message);
+            }
+            return respuesta;
+        }
+        //----------------------------------------------------------------------------------------------
 
     }
 }

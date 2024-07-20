@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Trabajo_Bootcamp_Microservicio.Interfaces;
+using Trabajo_Bootcamp_Microservicio.DTOs;
 using Trabajo_Bootcamp_Microservicio.Models;
 using Trabajo_Bootcamp_Microservicio.Utilities;
 
@@ -13,21 +14,73 @@ namespace Trabajo_Bootcamp_Microservicio.Services
         {
             this._context  = context;
         }
+
+
         //-----------------------------------------------PROVEEDOR--------------------------------------
-        public async Task<Respuesta> GetProveedor()
+        public async Task<Respuesta> GetProveedor(int provId, string? nombreProveedor, string identificacion)
         {
             var respuesta = new Respuesta();
             try
             {
                 respuesta.Cod = "000";
-                respuesta.Data = await _context.Proveedors.ToListAsync();
-                respuesta.Mensaje = "Ok";
+               // var _query = _context.Proveedors;
+                IQueryable<ProveedorDto> query = (from p in _context.Proveedors
+                                                 join c in _context.Ciudads on p.CiudadId equals c.CiudadId
+                                                 select new ProveedorDto
+                                                 {
+                                                     ProvId = p.ProvId,
+                                                     ProvRuc = p.ProvRuc,
+                                                     ProvNomComercial = p.ProvNomComercial,
+                                                     ProvRazon = p.ProvRazon,
+                                                     ProvDireccion = p.ProvDireccion,
+                                                     ProvTelefono = p.ProvTelefono,
+                                                     CiudadId = p.CiudadId,
+                                                     CiudadNombre = c.CiudadNombre,
+                                                     Estado = p.Estado,
+                                                     FechaHoraReg = p.FechaHoraReg,
+                                                     FechaHoraAct = p.FechaHoraAct,
+                                                     UsuIdAct = p.UsuIdAct,
+                                                     UsuIdReg = p.UsuIdReg
+                                                     });
+
+                if (provId != 0)
+                {
+
+                    if (provId == 0 && nombreProveedor == null && identificacion == null)
+                    {
+                        query = query.Where(p => p.Estado.Equals("A"));
+                    }
+                    else if (provId != 0 && nombreProveedor == null && identificacion == null)
+                    {
+                        query = query.Where(p => p.Estado.Equals("A") && p.ProvId.Equals(provId));
+                    }
+                    else if (provId == 0 && nombreProveedor != null && identificacion == null)
+                    {
+                        query = query.Where(p => p.Estado.Equals("A") && p.ProvNomComercial.Equals(nombreProveedor));
+                    }
+                    else if (provId == 0 && nombreProveedor != null && identificacion != null)
+                    {
+                        query = query.Where(p => p.Estado.Equals("A") && p.ProvNomComercial.Equals(nombreProveedor) && p.ProvRuc == identificacion);
+                    }
+                    else if (provId == 0 && nombreProveedor == null && identificacion != null)
+                    {
+                        query = query.Where(p => p.Estado.Equals("A") && p.ProvRuc == identificacion);
+                    }
+                    else if (provId != 0 && nombreProveedor != null && identificacion != null)
+                    {
+                        query = query.Where(p => p.Estado.Equals("A") && p.ProvId.Equals(provId) && p.ProvNomComercial.Equals(nombreProveedor) && p.ProvRuc == identificacion);
+                    }
+
+                }
+                respuesta.Data = await query.ToListAsync();
+                respuesta.Mensaje = "OK";
+
             }
             catch (Exception ex)
             {
                 respuesta.Cod = "000";
                 respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
-                Log.LogErrorMetodos("CatalogoService", "GetProveedor", ex.Message);
+                Log.LogErrorMetodos("ProveedorService", "GetProveedor", ex.Message);
             }
             return respuesta;
         }
