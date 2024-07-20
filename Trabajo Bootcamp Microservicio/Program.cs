@@ -11,6 +11,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<ICatalogo, CatalogoServices>();
 builder.Services.AddScoped<IProducto, ProductoServices>();
+builder.Services.AddScoped<IMovimientoCab, MovimientoCabServices>();
+builder.Services.AddScoped<IMovimientoDetProd, MovimientoDetProdServices>();
+builder.Services.AddScoped<IMovimientoDetPagos, MovimientoDetPagosServices>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
