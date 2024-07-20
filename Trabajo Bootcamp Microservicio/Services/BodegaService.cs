@@ -136,7 +136,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             var respuesta = new Respuesta();
             try
             {
-                var query = _context.Empresas.OrderByDescending(x => x.EmpresaId).FirstOrDefault();
+                var query = _context.Bodegas.OrderByDescending(x => x.BodegaId).FirstOrDefault();
 
                 bodega.BodegaId = Convert.ToInt32(query) + 1;
                 bodega.FechaHoraAct = DateTime.Now;

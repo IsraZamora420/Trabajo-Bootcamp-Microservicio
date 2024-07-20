@@ -27,7 +27,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                     respuesta.codigo = "000";
                     respuesta.data = await (from e in _context.Empresas
                                             join c in _context.Ciudads on e.CiudadId equals c.CiudadId
-                                            where e.Estado.Equals("A") && e.EmpresaId.Equals(EmpresaId) && e.EmpresaRuc.Equals(EmpresaRuc)
+                                            where e.Estado.Value == 1 && e.EmpresaId.Equals(EmpresaId) && e.EmpresaRuc.Equals(EmpresaRuc)
                                             select new EmpresaDto
                                             {
                                                 EmpresaId = e.EmpresaId,
@@ -47,7 +47,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                     respuesta.codigo = "000";
                     respuesta.data = await (from e in _context.Empresas
                                             join c in _context.Ciudads on e.CiudadId equals c.CiudadId
-                                            where e.Estado.Equals("A") && e.EmpresaId.Equals(EmpresaId)
+                                            where e.Estado.Value == 1 && e.EmpresaId.Equals(EmpresaId)
                                             select new EmpresaDto
                                             {
                                                 EmpresaId = e.EmpresaId,
@@ -67,7 +67,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                     respuesta.codigo = "000";
                     respuesta.data = await (from e in _context.Empresas
                                             join c in _context.Ciudads on e.CiudadId equals c.CiudadId
-                                            where e.Estado.Equals("A") && e.EmpresaRuc.Equals(EmpresaRuc)
+                                            where e.Estado.Value == 1 && e.EmpresaRuc.Equals(EmpresaRuc)
                                             select new EmpresaDto
                                             {
                                                 EmpresaId = e.EmpresaId,
