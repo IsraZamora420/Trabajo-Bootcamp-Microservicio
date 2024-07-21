@@ -24,8 +24,8 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             {
                 if (BodegaId != null && BodegaId != 0 && !string.IsNullOrEmpty(BodegaNombre) && SucursalId != null && SucursalId != 0)
                 {
-                    respuesta.codigo = "000";
-                    respuesta.data = await (from b in _context.Bodegas
+                    respuesta.Cod = "000";
+                    respuesta.Data = await (from b in _context.Bodegas
                                             join s in _context.Sucursals on b.SucursalId equals s.SucursalId
                                             where b.Estado.HasValue && b.Estado.Value == 1
                                             && b.BodegaId.Equals(BodegaId)
@@ -45,12 +45,12 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                 SucursalDireccion = s.SucursalDireccion,
                                                 SucursalTelefono = s.SucursalTelefono
                                             }).ToListAsync();
-                    respuesta.mensaje = "OK";
+                    respuesta.Mensaje = "OK";
                 }
                 else if (BodegaId != null && BodegaId != 0 && string.IsNullOrEmpty(BodegaNombre) && SucursalId == null)
                 {
-                    respuesta.codigo = "000";
-                    respuesta.data = await (from b in _context.Bodegas
+                    respuesta.Cod = "000";
+                    respuesta.Data = await (from b in _context.Bodegas
                                             join s in _context.Sucursals on b.SucursalId equals s.SucursalId
                                             where b.Estado.HasValue && b.Estado.Value == 1
                                             && b.BodegaId.Equals(BodegaId)
@@ -68,12 +68,12 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                 SucursalDireccion = s.SucursalDireccion,
                                                 SucursalTelefono = s.SucursalTelefono
                                             }).ToListAsync();
-                    respuesta.mensaje = "OK";
+                    respuesta.Mensaje = "OK";
                 }
                 else if (!string.IsNullOrEmpty(BodegaNombre) && BodegaId == null && SucursalId == null)
                 {
-                    respuesta.codigo = "000";
-                    respuesta.data = await (from b in _context.Bodegas
+                    respuesta.Cod = "000";
+                    respuesta.Data = await (from b in _context.Bodegas
                                             join s in _context.Sucursals on b.SucursalId equals s.SucursalId
                                             where b.Estado.HasValue && b.Estado.Value == 1
                                             && b.BodegaNombre.Contains(BodegaNombre)
@@ -91,12 +91,12 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                 SucursalDireccion = s.SucursalDireccion,
                                                 SucursalTelefono = s.SucursalTelefono
                                             }).ToListAsync();
-                    respuesta.mensaje = "OK";
+                    respuesta.Mensaje = "OK";
                 }
                 else if (SucursalId != null && SucursalId != 0 && BodegaId == null && string.IsNullOrEmpty(BodegaNombre))
                 {
-                    respuesta.codigo = "000";
-                    respuesta.data = await (from b in _context.Bodegas
+                    respuesta.Cod = "000";
+                    respuesta.Data = await (from b in _context.Bodegas
                                             join s in _context.Sucursals on b.SucursalId equals s.SucursalId
                                             where b.Estado.HasValue && b.Estado.Value == 1
                                             && b.SucursalId.Equals(SucursalId)
@@ -114,12 +114,12 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                 SucursalDireccion = s.SucursalDireccion,
                                                 SucursalTelefono = s.SucursalTelefono
                                             }).ToListAsync();
-                    respuesta.mensaje = "OK";
+                    respuesta.Mensaje = "OK";
                 }
                 else
                 {
-                    respuesta.codigo = "000";
-                    respuesta.data = await (from b in _context.Bodegas
+                    respuesta.Cod = "000";
+                    respuesta.Data = await (from b in _context.Bodegas
                                             join s in _context.Sucursals on b.SucursalId equals s.SucursalId
                                             where b.Estado.HasValue && b.Estado.Value == 1
                                             select new BodegaSucursalDto
@@ -136,13 +136,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                 SucursalDireccion = s.SucursalDireccion,
                                                 SucursalTelefono = s.SucursalTelefono
                                             }).ToListAsync();
-                    respuesta.mensaje = "OK";
+                    respuesta.Mensaje = "OK";
                 }
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("BodegaService", "GetBodega", ex.Message);
             }
             return respuesta;
@@ -162,14 +162,14 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 _context.Bodegas.Add(bodega);
                 await _context.SaveChangesAsync();
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = "Se insertó correctamente";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se insertó correctamente";
             }
             catch (Exception ex)
             {
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("BodegaService", "PostBodega", ex.Message);
             }
             return respuesta;
@@ -184,13 +184,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 _context.Bodegas.Update(bodega);
                 await _context.SaveChangesAsync();
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = "Se actualizó correctamente";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se actualizó correctamente";
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
                 Log.LogErrorMetodos("BodegaService", "PutBodega", ex.Message);
             }
             return respuesta;

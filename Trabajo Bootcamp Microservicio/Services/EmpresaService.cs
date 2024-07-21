@@ -24,8 +24,8 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             {
                 if (EmpresaId != 0 && EmpresaRuc != null)
                 {
-                    respuesta.codigo = "000";
-                    respuesta.data = await (from e in _context.Empresas
+                    respuesta.Cod = "000";
+                    respuesta.Data = await (from e in _context.Empresas
                                             join c in _context.Ciudads on e.CiudadId equals c.CiudadId
                                             where e.Estado.Value == 1 && e.EmpresaId.Equals(EmpresaId) && e.EmpresaRuc.Equals(EmpresaRuc)
                                             select new EmpresaDto
@@ -40,12 +40,12 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                 Ciudad = c.CiudadNombre,
                                                 Estado = e.Estado
                                             }).ToListAsync();
-                    respuesta.mensaje = "OK";
+                    respuesta.Mensaje = "OK";
                 }
                 else if (EmpresaId != 0 && EmpresaNombre.IsNullOrEmpty() && EmpresaRuc.IsNullOrEmpty())
                 {
-                    respuesta.codigo = "000";
-                    respuesta.data = await (from e in _context.Empresas
+                    respuesta.Cod = "000";
+                    respuesta.Data = await (from e in _context.Empresas
                                             join c in _context.Ciudads on e.CiudadId equals c.CiudadId
                                             where e.Estado.Value == 1 && e.EmpresaId.Equals(EmpresaId)
                                             select new EmpresaDto
@@ -60,12 +60,12 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                 Ciudad = c.CiudadNombre,
                                                 Estado = e.Estado
                                             }).ToListAsync();
-                    respuesta.mensaje = "OK";
+                    respuesta.Mensaje = "OK";
                 }
                 else if (!EmpresaRuc.IsNullOrEmpty() && EmpresaId == 0 && EmpresaNombre.IsNullOrEmpty())
                 {
-                    respuesta.codigo = "000";
-                    respuesta.data = await (from e in _context.Empresas
+                    respuesta.Cod = "000";
+                    respuesta.Data = await (from e in _context.Empresas
                                             join c in _context.Ciudads on e.CiudadId equals c.CiudadId
                                             where e.Estado.Value == 1 && e.EmpresaRuc.Equals(EmpresaRuc)
                                             select new EmpresaDto
@@ -80,12 +80,12 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                 Ciudad = c.CiudadNombre,
                                                 Estado = e.Estado
                                             }).ToListAsync();
-                    respuesta.mensaje = "OK";
+                    respuesta.Mensaje = "OK";
                 }
                 else
                 {
-                    respuesta.codigo = "000";
-                    respuesta.data = await (from e in _context.Empresas
+                    respuesta.Cod = "000";
+                    respuesta.Data = await (from e in _context.Empresas
                                             join c in _context.Ciudads on e.CiudadId equals c.CiudadId
                                             where e.Estado.Value == 1
                                             select new EmpresaDto
@@ -100,13 +100,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                 Ciudad = c.CiudadNombre,
                                                 Estado = e.Estado
                                             }).ToListAsync();
-                    respuesta.mensaje = "OK";
+                    respuesta.Mensaje = "OK";
                 }
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("EmpresaService", "GetEmpresa", ex.Message);
             }
             return respuesta;
@@ -127,14 +127,14 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 _context.Empresas.Add(empresa);
                 await _context.SaveChangesAsync();
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = "Se insertó correctamente";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se insertó correctamente";
             }
             catch (Exception ex)
             {
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("EmpresaService", "PostEmpresa", ex.Message);
             }
             return respuesta;
@@ -149,13 +149,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 _context.Empresas.Update(empresa);
                 await _context.SaveChangesAsync();
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = "Se actualizó correctamente";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se actualizó correctamente";
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
                 Log.LogErrorMetodos("EmpresaService", "PutEmpresa", ex.Message);
             }
             return respuesta;

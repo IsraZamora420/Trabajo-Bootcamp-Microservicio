@@ -21,11 +21,11 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             var respuesta = new Respuesta();
             try
             {
-                respuesta.codigo = "000";
+                respuesta.Cod = "000";
 
                 if (SucursalId != null && SucursalId != 0 && !string.IsNullOrEmpty(SucursalRuc) && !string.IsNullOrEmpty(SucursalNombre))
                 {
-                    respuesta.data = await (from s in _context.Sucursals
+                    respuesta.Data = await (from s in _context.Sucursals
                                             join e in _context.Empresas on s.EmpresaId equals e.EmpresaId
                                             where s.SucursalId == SucursalId && s.SucursalRuc == SucursalRuc && s.SucursalNombre == SucursalNombre && s.Estado.Value == 1
                                             select new SucursalDto
@@ -45,7 +45,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 }
                 else if (SucursalId != null && SucursalId != 0 && string.IsNullOrEmpty(SucursalRuc) && string.IsNullOrEmpty(SucursalNombre))
                 {
-                    respuesta.data = await (from s in _context.Sucursals
+                    respuesta.Data = await (from s in _context.Sucursals
                                             join e in _context.Empresas on s.EmpresaId equals e.EmpresaId
                                             where s.SucursalId == SucursalId && s.Estado.Value == 1
                                             select new SucursalDto
@@ -65,7 +65,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 }
                 else if (string.IsNullOrEmpty(SucursalRuc) && string.IsNullOrEmpty(SucursalNombre) && SucursalId == 0)
                 {
-                    respuesta.data = await (from s in _context.Sucursals
+                    respuesta.Data = await (from s in _context.Sucursals
                                             join e in _context.Empresas on s.EmpresaId equals e.EmpresaId
                                             where s.Estado.Value == 1
                                             select new SucursalDto
@@ -85,7 +85,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 }
                 else if (!string.IsNullOrEmpty(SucursalRuc) && SucursalId == 0 && string.IsNullOrEmpty(SucursalNombre))
                 {
-                    respuesta.data = await (from s in _context.Sucursals
+                    respuesta.Data = await (from s in _context.Sucursals
                                             join e in _context.Empresas on s.EmpresaId equals e.EmpresaId
                                             where s.SucursalRuc == SucursalRuc && s.Estado.Value == 1
                                             select new SucursalDto
@@ -105,7 +105,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 }
                 else if (string.IsNullOrEmpty(SucursalRuc) && !string.IsNullOrEmpty(SucursalNombre) && SucursalId == 0)
                 {
-                    respuesta.data = await (from s in _context.Sucursals
+                    respuesta.Data = await (from s in _context.Sucursals
                                             join e in _context.Empresas on s.EmpresaId equals e.EmpresaId
                                             where s.SucursalNombre.Contains(SucursalNombre) && s.Estado.Value == 1
                                             select new SucursalDto
@@ -125,7 +125,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 }
                 else if (SucursalId == 0 && !string.IsNullOrEmpty(SucursalRuc) && !string.IsNullOrEmpty(SucursalNombre))
                 {
-                    respuesta.data = await (from s in _context.Sucursals
+                    respuesta.Data = await (from s in _context.Sucursals
                                             join e in _context.Empresas on s.EmpresaId equals e.EmpresaId
                                             where s.SucursalRuc == SucursalRuc && s.SucursalNombre == SucursalNombre && s.Estado.Value == 1
                                             select new SucursalDto
@@ -144,12 +144,12 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                             }).ToListAsync();
                 }
 
-                respuesta.mensaje = "OK";
+                respuesta.Mensaje = "OK";
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("SucursalService", "GetSucursal", ex.Message);
             }
 
@@ -170,14 +170,14 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 _context.Sucursals.Add(sucursal);
                 await _context.SaveChangesAsync();
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = "Se insertó correctamente";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se insertó correctamente";
             }
             catch (Exception ex)
             {
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("SucursalService", "PostSucursal", ex.Message);
             }
             return respuesta;
@@ -192,13 +192,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 _context.Sucursals.Update(sucursal);
                 await _context.SaveChangesAsync();
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = "Se actualizó correctamente";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se actualizó correctamente";
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
                 Log.LogErrorMetodos("SucursalService", "PutSucursal", ex.Message);
             }
             return respuesta;

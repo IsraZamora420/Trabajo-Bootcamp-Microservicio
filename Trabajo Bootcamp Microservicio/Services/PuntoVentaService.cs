@@ -21,11 +21,11 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             var respuesta = new Respuesta();
             try
             {
-                respuesta.codigo = "000";
+                respuesta.Cod = "000";
 
                 if (PuntoEmisionId != 0 && !string.IsNullOrEmpty(PuntoEmision) && EmpresaId != null && SucursalId != null && !string.IsNullOrEmpty(CodEstablecimientoSri))
                 {
-                    respuesta.data = await (from pe in _context.PuntoEmisionSris
+                    respuesta.Data = await (from pe in _context.PuntoEmisionSris
                                             join e in _context.Empresas on pe.EmpresaId equals e.EmpresaId
                                             join s in _context.Sucursals on pe.SucursalId equals s.SucursalId
                                             where pe.PuntoEmisionId == PuntoEmisionId && pe.PuntoEmision == PuntoEmision && pe.EmpresaId == EmpresaId && pe.SucursalId == SucursalId && pe.CodEstablecimientoSri == CodEstablecimientoSri && pe.Estado == 1
@@ -48,7 +48,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 }
                 else if (PuntoEmisionId != 0)
                 {
-                    respuesta.data = await (from pe in _context.PuntoEmisionSris
+                    respuesta.Data = await (from pe in _context.PuntoEmisionSris
                                             join e in _context.Empresas on pe.EmpresaId equals e.EmpresaId
                                             join s in _context.Sucursals on pe.SucursalId equals s.SucursalId
                                             where pe.PuntoEmisionId == PuntoEmisionId && pe.Estado == 1
@@ -71,12 +71,12 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 }
                 // Añade aquí otros condicionales según sea necesario
 
-                respuesta.mensaje = "OK";
+                respuesta.Mensaje = "OK";
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("PuntoVentaService", "GetPuntoEmisionSRI", ex.Message);
             }
             return respuesta;
@@ -87,11 +87,11 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             var respuesta = new Respuesta();
             try
             {
-                respuesta.codigo = "000";
+                respuesta.Cod = "000";
 
                 if (PuntovtaId != 0 && !string.IsNullOrEmpty(PuntovtaNombre) && PuntoEmisionId != null)
                 {
-                    respuesta.data = await (from pv in _context.PuntoVenta
+                    respuesta.Data = await (from pv in _context.PuntoVenta
                                             join pe in _context.PuntoEmisionSris on pv.PuntoEmisionId equals pe.PuntoEmisionId
                                             join s in _context.Sucursals on pv.SucursalId equals s.SucursalId
                                             where pv.PuntovtaId == PuntovtaId && pv.PuntovtaNombre == PuntovtaNombre && pv.PuntoEmisionId == PuntoEmisionId && pv.Estado == 1
@@ -112,7 +112,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 }
                 else if (PuntovtaId != 0)
                 {
-                    respuesta.data = await (from pv in _context.PuntoVenta
+                    respuesta.Data = await (from pv in _context.PuntoVenta
                                             join pe in _context.PuntoEmisionSris on pv.PuntoEmisionId equals pe.PuntoEmisionId
                                             join s in _context.Sucursals on pv.SucursalId equals s.SucursalId
                                             where pv.PuntovtaId == PuntovtaId && pv.Estado == 1
@@ -132,12 +132,12 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                             }).ToListAsync();
                 }
 
-                respuesta.mensaje = "OK";
+                respuesta.Mensaje = "OK";
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("PuntoVentaService", "GetPuntoVenta", ex.Message);
             }
             return respuesta;
@@ -157,13 +157,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 _context.PuntoEmisionSris.Add(puntoSRI);
                 await _context.SaveChangesAsync();
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = "Se insertó correctamente";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se insertó correctamente";
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("PuntoVentaService", "PostPuntoEmisionSRI", ex.Message);
             }
             return respuesta;
@@ -183,13 +183,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 _context.PuntoVenta.Add(puntoVenta);
                 await _context.SaveChangesAsync();
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = "Se insertó correctamente";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se insertó correctamente";
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("PuntoVentaService", "PostPuntoVenta", ex.Message);
             }
             return respuesta;
@@ -204,13 +204,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 _context.PuntoEmisionSris.Update(puntoSRI);
                 await _context.SaveChangesAsync();
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = "Se actualizó correctamente";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se actualizó correctamente";
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("PuntoVentaService", "PutPuntoEmisionSRI", ex.Message);
             }
             return respuesta;
@@ -225,13 +225,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 _context.PuntoVenta.Update(puntoVenta);
                 await _context.SaveChangesAsync();
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = "Se actualizó correctamente";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se actualizó correctamente";
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("PuntoVentaService", "PutPuntoVenta", ex.Message);
             }
             return respuesta;

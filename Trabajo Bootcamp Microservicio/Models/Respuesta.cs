@@ -2,8 +2,9 @@
 {
     public class Respuesta
     {
-        public string codigo { get; set; }
-        public dynamic data { get; set; }
-        public string mensaje { get; set; }
+
+        public string Cod { get; set; }
+        public dynamic Data { get; set; }
+        public string Mensaje { get; set; }
     }
 }

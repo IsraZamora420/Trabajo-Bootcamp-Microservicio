@@ -20,11 +20,11 @@ namespace Trabajo_Bootcamp_Microservicio.Services
             var respuesta = new Respuesta();
             try
             {
-                respuesta.codigo = "000";
+                respuesta.Cod = "000";
 
                 if (EmpresaId == 0 && SucursalId == 0 && BodegaId == 0 && ProdId != 0)
                 {
-                    respuesta.data = await (from s in _context.Stocks
+                    respuesta.Data = await (from s in _context.Stocks
                                             join e in _context.Empresas on s.EmpresaId equals e.EmpresaId
                                             join su in _context.Sucursals on s.SucursalId equals su.SucursalId
                                             join b in _context.Bodegas on s.BodegaId equals b.BodegaId
@@ -48,7 +48,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 }
                 else if (EmpresaId != 0 && SucursalId == 0 && BodegaId == 0 && ProdId == 0)
                 {
-                    respuesta.data = await (from s in _context.Stocks
+                    respuesta.Data = await (from s in _context.Stocks
                                             join e in _context.Empresas on s.EmpresaId equals e.EmpresaId
                                             join su in _context.Sucursals on s.SucursalId equals su.SucursalId
                                             join b in _context.Bodegas on s.BodegaId equals b.BodegaId
@@ -72,7 +72,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 }
                 else if (EmpresaId != 0 && SucursalId != 0 && BodegaId == 0 && ProdId == 0)
                 {
-                    respuesta.data = await (from s in _context.Stocks
+                    respuesta.Data = await (from s in _context.Stocks
                                             join e in _context.Empresas on s.EmpresaId equals e.EmpresaId
                                             join su in _context.Sucursals on s.SucursalId equals su.SucursalId
                                             join b in _context.Bodegas on s.BodegaId equals b.BodegaId
@@ -97,7 +97,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 }
                 else if (EmpresaId != 0 && SucursalId != 0 && BodegaId != 0 && ProdId == 0)
                 {
-                    respuesta.data = await (from s in _context.Stocks
+                    respuesta.Data = await (from s in _context.Stocks
                                             join e in _context.Empresas on s.EmpresaId equals e.EmpresaId
                                             join su in _context.Sucursals on s.SucursalId equals su.SucursalId
                                             join b in _context.Bodegas on s.BodegaId equals b.BodegaId
@@ -123,7 +123,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 }
                 else if (EmpresaId != 0 && SucursalId != 0 && BodegaId != 0 && ProdId != 0)
                 {
-                    respuesta.data = await (from s in _context.Stocks
+                    respuesta.Data = await (from s in _context.Stocks
                                             join e in _context.Empresas on s.EmpresaId equals e.EmpresaId
                                             join su in _context.Sucursals on s.SucursalId equals su.SucursalId
                                             join b in _context.Bodegas on s.BodegaId equals b.BodegaId
@@ -149,12 +149,12 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                             }).ToListAsync();
                 }
 
-                respuesta.mensaje = "OK";
+                respuesta.Mensaje = "OK";
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("StockService", "GetStock", ex.Message);
             }
 
@@ -175,14 +175,14 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 _context.Stocks.Add(stock);
                 await _context.SaveChangesAsync();
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = "Se insertó correctamente";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se insertó correctamente";
             }
             catch (Exception ex)
             {
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Ocurrió un error al procesar la solicitud: {ex.Message}";
                 Log.LogErrorMetodos("StockService", "PostStock", ex.Message);
             }
             return respuesta;
@@ -197,13 +197,13 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 _context.Stocks.Update(stock);
                 await _context.SaveChangesAsync();
 
-                respuesta.codigo = "000";
-                respuesta.mensaje = "Se actualizó correctamente";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "Se actualizó correctamente";
             }
             catch (Exception ex)
             {
-                respuesta.codigo = "000";
-                respuesta.mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
+                respuesta.Cod = "000";
+                respuesta.Mensaje = $"Se presentó una novedad, comunicarse con el administrador del sistema";
                 Log.LogErrorMetodos("StockService", "PutStock", ex.Message);
             }
             return respuesta;
