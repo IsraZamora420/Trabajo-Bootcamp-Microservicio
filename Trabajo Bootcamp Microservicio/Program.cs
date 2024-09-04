@@ -25,6 +25,7 @@ builder.Services.AddScoped<IUsuarioRol, UsuarioRolServices>();
 builder.Services.AddScoped<ITarjetaCredito, TarjetaCreditoServices>();
 builder.Services.AddScoped<IOpcion, OpcionServices>();
 builder.Services.AddScoped<IUsuarioPermiso, UsuarioPermisoServices>();
+builder.Services.AddScoped<IUsuarioAutenticacion, UsuarioAutenticacionService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

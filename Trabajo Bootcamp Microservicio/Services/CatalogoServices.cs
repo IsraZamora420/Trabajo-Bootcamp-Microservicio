@@ -396,7 +396,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                 var query = _context.Usuarios.OrderByDescending(c => c.UsuId).Select(c => c.UsuId).FirstOrDefault();
 
                 usuario.UsuId = Convert.ToInt32(query) + 1;
-                usuario.FechaHoraReg = DateTime.Now;
+                usuario.FechaHoraReg = Convert.ToString(DateTime.Now);
 
                 _context.Usuarios.Add(usuario);
                 await _context.SaveChangesAsync();

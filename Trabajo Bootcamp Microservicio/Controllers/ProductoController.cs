@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using Trabajo_Bootcamp_Microservicio.DTOs;
 using Trabajo_Bootcamp_Microservicio.Interfaces;
 using Trabajo_Bootcamp_Microservicio.Models;
 using Trabajo_Bootcamp_Microservicio.Utilities;
@@ -34,14 +37,17 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             return respuesta;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetProducto")]
-        public async Task<Respuesta> GetProducto(int idProducto)
+        public async Task<Respuesta> GetProducto([FromBody] Request request)
         {
             var respuesta = new Respuesta();
+            var productoDTO = new JsonLogDto();
             try
             {
-                respuesta = await _producto.GetProducto(idProducto);
+                //var json = JsonConvert.SerializeObject(request.Data);
+                productoDTO = JsonConvert.DeserializeObject<JsonLogDto>(Convert.ToString(request.Data));
+                respuesta = await _producto.GetProducto(productoDTO.idProducto);
             }
             catch (Exception ex)
             {
