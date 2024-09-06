@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Trabajo_Bootcamp_Microservicio.DTOs;
 using Trabajo_Bootcamp_Microservicio.Interfaces;
@@ -9,6 +10,7 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [EnableCors("_myAllowSpecificOrigins")]
     public class UsuarioAutenticacionController : Controller
     {
         private readonly IUsuarioAutenticacion _usuarioAutenticacion;
