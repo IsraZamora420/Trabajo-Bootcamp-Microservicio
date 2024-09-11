@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Linq.Expressions;
+using Trabajo_Bootcamp_Microservicio.DTOs;
 using Trabajo_Bootcamp_Microservicio.Interfaces;
 using Trabajo_Bootcamp_Microservicio.Models;
 using Trabajo_Bootcamp_Microservicio.Utilities;
@@ -9,6 +12,7 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [EnableCors("_myAllowSpecificOrigins")]
     public class EmpresaController : Controller
     {
         private readonly IEmpresa _empresa;
@@ -19,18 +23,19 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             this._empresa = empresa;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetEmpresa")]
-        public async Task<Respuesta> GetEmpresa(int? EmpresaId, string? EmpresaRuc, string? EmpresaNombre)
+        public async Task<Respuesta> GetEmpresa([FromBody] Request request)
         {
             var respuesta = new Respuesta();
+            var empresaDto = new JsonLogDto();
             try
             {
-                respuesta = await _empresa.GetEmpresa(EmpresaId,EmpresaRuc, EmpresaNombre);
+                empresaDto = JsonConvert.DeserializeObject<JsonLogDto>(Convert.ToString(request.Data));
+                respuesta = await _empresa.GetEmpresa(empresaDto.idEmpresa, empresaDto.empresaRuc, empresaDto.empresaNombre);
             }
             catch (Exception ex)
             {
-
                 Log.LogErrorMetodos("EmpresaController", "GetEmpresa", ex.Message);
             }
             return respuesta;
@@ -58,7 +63,7 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             var respuesta = new Respuesta();
             try
             {
-                respuesta= await _empresa.PutEmpresa(empresa);
+                respuesta = await _empresa.PutEmpresa(empresa);
             }
             catch (Exception ex)
             {

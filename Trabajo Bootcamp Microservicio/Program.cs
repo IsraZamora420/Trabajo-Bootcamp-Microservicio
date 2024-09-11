@@ -5,7 +5,18 @@ using Trabajo_Bootcamp_Microservicio.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+});
 
 builder.Services.AddControllers();
 
@@ -25,6 +36,7 @@ builder.Services.AddScoped<IUsuarioRol, UsuarioRolServices>();
 builder.Services.AddScoped<ITarjetaCredito, TarjetaCreditoServices>();
 builder.Services.AddScoped<IOpcion, OpcionServices>();
 builder.Services.AddScoped<IUsuarioPermiso, UsuarioPermisoServices>();
+builder.Services.AddScoped<IUsuarioAutenticacion, UsuarioAutenticacionService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -41,10 +53,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+//Configure the HTTP request pipeline
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+
+app.UseCors();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+
+
+
+

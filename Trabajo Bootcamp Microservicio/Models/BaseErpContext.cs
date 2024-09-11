@@ -61,16 +61,15 @@ public partial class BaseErpContext : DbContext
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
+    public virtual DbSet<UsuarioAutenticacion> UsuarioAutenticacions { get; set; }
+
     public virtual DbSet<UsuarioPermiso> UsuarioPermisos { get; set; }
 
     public virtual DbSet<UsuarioRol> UsuarioRols { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        //optionsBuilder.UseSqlServer("Server=Jimmy\\SQLEXPRESS;Database=BASE_ERP;Integrated Security=True;TrustServerCertificate=True");
-        //optionsBuilder.UseSqlServer("Server=ASUSGIGI\\SQLEXPRESS;Database=BASE_ERP;Integrated Security=True;TrustServerCertificate=True");
-        //optionsBuilder.UseSqlServer("Server=CRISTIANM\\sqlexpress;Database=VENTAS_ERP;Integrated Security=True;TrustServerCertificate=True");
-    }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-J0UV241\\SQLEXPRESS;Database=BASE_ERP;Integrated Security=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -876,6 +875,23 @@ public partial class BaseErpContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("usu_nombre");
+        });
+
+        modelBuilder.Entity<UsuarioAutenticacion>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("usuario_autenticacion");
+
+            entity.Property(e => e.Username)
+                .HasMaxLength(30)
+                .IsUnicode(false)
+                .HasColumnName("username");
+            entity.Property(e => e.Userpassword)
+                .HasMaxLength(30)
+                .IsUnicode(false)
+                .HasColumnName("userpassword");
+            entity.Property(e => e.UsuId).HasColumnName("usu_id");
         });
 
         modelBuilder.Entity<UsuarioPermiso>(entity =>

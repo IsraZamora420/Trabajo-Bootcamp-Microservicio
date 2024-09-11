@@ -1,5 +1,8 @@
 
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Trabajo_Bootcamp_Microservicio.DTOs;
 using Trabajo_Bootcamp_Microservicio.Interfaces;
 using Trabajo_Bootcamp_Microservicio.Models;
 using Trabajo_Bootcamp_Microservicio.Utilities;
@@ -8,6 +11,7 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [EnableCors("_myAllowSpecificOrigins")]
     public class CatalogoController : Controller
     {
         private readonly ICatalogo _catalogo;
@@ -116,14 +120,16 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             return respuesta;
         }
         //-----------------------------------------------CLIENTE-----------------------------------------
-        [HttpGet]
+        [HttpPost]
         [Route("GetCliente")]
-        public async Task<Respuesta> GetCliente(int clienteId)
+        public async Task<Respuesta> GetCliente([FromBody] Request request)
         {
             var respuesta = new Respuesta();
+            var clienteDto = new JsonLogDto();
             try
             {
-                respuesta = await _catalogo.GetCliente(clienteId);
+                clienteDto = JsonConvert.DeserializeObject<JsonLogDto>(Convert.ToString(request.Data));
+                respuesta = await _catalogo.GetCliente(clienteDto.idCliente);
             }
             catch (Exception ex)
             {
@@ -312,14 +318,16 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
         //----------------------------------------------------------------------------------------------
 
         //-------------------------------------------PAIS-------------------------------
-        [HttpGet]
+        [HttpPost]
         [Route("GetPais")]
-        public async Task<Respuesta> GetPais(int idpais)
+        public async Task<Respuesta> GetPais([FromBody] Request request)
         {
             var respuesta = new Respuesta();
+            var paisDto = new JsonLogDto();
             try
             {
-                respuesta = await _catalogo.GetPais(idpais);
+                paisDto = JsonConvert.DeserializeObject<JsonLogDto>(Convert.ToString(request.Data));
+                respuesta = await _catalogo.GetPais(paisDto.idPais);
             }
             catch (Exception ex)
             {
@@ -377,14 +385,16 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             return respuesta;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetCategoria")]
-        public async Task<Respuesta> GetCategoria(int idCategoria)
+        public async Task<Respuesta> GetCategoria([FromBody] Request request)
         {
             var respuesta = new Respuesta();
+            var catalogoDto = new JsonLogDto();
             try
             {
-                respuesta = await _catalogo.GetCategoria(idCategoria);
+                catalogoDto = JsonConvert.DeserializeObject<JsonLogDto>(Convert.ToString(request.Data));
+                respuesta = await _catalogo.GetCategoria(catalogoDto.idCatalogo);
             }
             catch (Exception ex)
             {

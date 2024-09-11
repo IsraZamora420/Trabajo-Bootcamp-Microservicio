@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Trabajo_Bootcamp_Microservicio.DTOs;
 using Trabajo_Bootcamp_Microservicio.Interfaces;
 using Trabajo_Bootcamp_Microservicio.Models;
 using Trabajo_Bootcamp_Microservicio.Utilities;
@@ -17,14 +19,16 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             this._movimientoDetProd = movimientoDetProd;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetMovimientoDetProd")]
-        public async Task<Respuesta> GetMovimientoDetProd(int idMovimientoDetProducto)
+        public async Task<Respuesta> GetMovimientoDetProd([FromBody] Request request)
         {
             var respuesta = new Respuesta();
+            var movDetProd = new JsonLogDto();
             try
             {
-                respuesta = await _movimientoDetProd.GetMovimientoDetProd(idMovimientoDetProducto);
+                movDetProd = JsonConvert.DeserializeObject<JsonLogDto>(Convert.ToString(request.Data));
+                respuesta = await _movimientoDetProd.GetMovimientoDetProd(movDetProd.idMovDetProd);
             }
             catch (Exception ex)
             {
