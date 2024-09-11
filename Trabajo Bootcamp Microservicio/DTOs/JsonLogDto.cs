@@ -15,5 +15,11 @@
         public int idMovCab { get; set; }
         //--------MOVIMIENTO DETALLE PRODUCTO------
         public int idMovDetProd { get; set; }
+        //----------CLIENTE-------------------------
+        public int idCliente { get; set; }
+        //----------EMPRESA-------------------------
+        public int idEmpresa { get; set; }
+        public string empresaRuc { get; set; }
+        public string empresaNombre { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Trabajo_Bootcamp_Microservicio.DTOs;
@@ -10,6 +11,7 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [EnableCors("_myAllowSpecificOrigins")]
     public class ProductoController : Controller
     {
         private readonly IProducto _producto;

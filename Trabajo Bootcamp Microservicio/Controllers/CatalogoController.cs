@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Trabajo_Bootcamp_Microservicio.DTOs;
@@ -10,6 +11,7 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [EnableCors("_myAllowSpecificOrigins")]
     public class CatalogoController : Controller
     {
         private readonly ICatalogo _catalogo;
@@ -118,14 +120,16 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             return respuesta;
         }
         //-----------------------------------------------CLIENTE-----------------------------------------
-        [HttpGet]
+        [HttpPost]
         [Route("GetCliente")]
-        public async Task<Respuesta> GetCliente(int clienteId)
+        public async Task<Respuesta> GetCliente([FromBody] Request request)
         {
             var respuesta = new Respuesta();
+            var clienteDto = new JsonLogDto();
             try
             {
-                respuesta = await _catalogo.GetCliente(clienteId);
+                clienteDto = JsonConvert.DeserializeObject<JsonLogDto>(Convert.ToString(request.Data));
+                respuesta = await _catalogo.GetCliente(clienteDto.idCliente);
             }
             catch (Exception ex)
             {
