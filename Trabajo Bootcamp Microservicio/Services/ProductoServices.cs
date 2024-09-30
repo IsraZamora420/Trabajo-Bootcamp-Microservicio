@@ -63,6 +63,7 @@ namespace Trabajo_Bootcamp_Microservicio.Services
                                                      UsuIdAct = p.UsuIdAct,
                                                      UsuIdReg = p.UsuIdReg,
                                                      Estado = p.Estado,
+                                                     EstadoNombre = p.Estado == 1 ? "Activo" : "Inactivo",
                                                      CategoriaId = p.CategoriaId,
                                                      CategoriaNombre = c.CategoriaDescrip,
                                                      EmpresaId = p.EmpresaId,

@@ -19,6 +19,7 @@ namespace Trabajo_Bootcamp_Microservicio.DTOs
         public int? UsuIdAct { get; set; }
 
         public int? Estado { get; set; }
+        public string? EstadoNombre { get; set; }
 
         public int? CategoriaId { get; set; }
         public string? CategoriaNombre { get; set; }

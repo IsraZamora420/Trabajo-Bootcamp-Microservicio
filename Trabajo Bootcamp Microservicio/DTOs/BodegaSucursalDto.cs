@@ -1,6 +1,6 @@
 ﻿namespace Trabajo_Bootcamp_Microservicio.DTOs
 {
-    internal class BodegaSucursalDto
+    public class BodegaSucursalDto
     {
         public int BodegaId { get; set; }
         public string BodegaNombre { get; set; }

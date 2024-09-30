@@ -21,5 +21,13 @@
         public int idEmpresa { get; set; }
         public string empresaRuc { get; set; }
         public string empresaNombre { get; set; }
+        //---------BODEGA----------------------------
+        public int idBodega { get; set; }
+        public string bodegaNombre { get; set; }
+        public int bodegaIdSucursal { get; set; }
+        //---------PROVEEDOR-------------------------
+        public int idProveedor { get; set; }
+        public string proveedor { get; set; }
+        public string identificacion { get; set; }
     }
 }

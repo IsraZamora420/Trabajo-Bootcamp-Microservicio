@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Trabajo_Bootcamp_Microservicio.DTOs;
 using Trabajo_Bootcamp_Microservicio.Interfaces;
 using Trabajo_Bootcamp_Microservicio.Models;
 using Trabajo_Bootcamp_Microservicio.Utilities;
@@ -8,6 +11,7 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
 
     [ApiController]
     [Route("[controller]")]
+    [EnableCors("_myAllowSpecificOrigins")]
     public class ProveedorController : Controller
     {
         private readonly IProveedor _proveedor;
@@ -17,21 +21,24 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             this._proveedor = proveedor;
         }
 
-     [HttpGet]
-     [Route("GetProveedor")]
-    public async Task<Respuesta> GetProveedor(int provId, string? nombreProveedor, string identificacion)
-     {
-         var respuesta = new Respuesta();
-         try
-         {
-             respuesta = await _proveedor.GetProveedor(provId, nombreProveedor,identificacion);
-         }
-         catch (Exception ex)
-         {
-             Log.LogErrorMetodos("ProveedorController", "GetProveedor", ex.Message);
-         }
-         return respuesta;
-     }
+        [HttpPost]
+        [Route("GetProveedor")]
+        public async Task<Respuesta> GetProveedor([FromBody] Request request)
+        {
+            var respuesta = new Respuesta();
+            var proveedorDto = new JsonLogDto();
+
+            try
+            {
+                proveedorDto = JsonConvert.DeserializeObject<JsonLogDto>(Convert.ToString(request.Data));
+                respuesta = await _proveedor.GetProveedor(proveedorDto.idProveedor, proveedorDto.proveedor, proveedorDto.identificacion);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMetodos("ProveedorController", "GetProveedor", ex.Message);
+            }
+            return respuesta;
+        }
 
         [HttpPost]
         [Route("PostProveedor")]

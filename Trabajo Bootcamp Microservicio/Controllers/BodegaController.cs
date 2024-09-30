@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Trabajo_Bootcamp_Microservicio.DTOs;
 using Trabajo_Bootcamp_Microservicio.Interfaces;
 using Trabajo_Bootcamp_Microservicio.Models;
 using Trabajo_Bootcamp_Microservicio.Utilities;
@@ -7,6 +10,7 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [EnableCors("_myAllowSpecificOrigins")]
     public class BodegaController : Controller
     {
         private readonly IBodega _bodega;
@@ -17,18 +21,19 @@ namespace Trabajo_Bootcamp_Microservicio.Controllers
             _bodega = bodega;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetBodega")]
-        public async Task<Respuesta> GetBodega(int BodegaId, string? BodegaNombre, int? SucursalId)
+        public async Task<Respuesta> GetBodega([FromBody] Request request)
         {
             var respuesta = new Respuesta();
+            var bodegaDTO = new JsonLogDto();
             try
             {
-                respuesta = await _bodega.GetBodega(BodegaId, BodegaNombre, SucursalId);
+                bodegaDTO = JsonConvert.DeserializeObject<JsonLogDto>(Convert.ToString(request.Data));
+                respuesta = await _bodega.GetBodega(bodegaDTO.idBodega, bodegaDTO.bodegaNombre, bodegaDTO.bodegaIdSucursal);
             }
             catch (Exception ex)
             {
-
                 Log.LogErrorMetodos("BodegaController", "GetBodega", ex.Message);
             }
             return respuesta;
